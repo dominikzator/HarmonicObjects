@@ -1,23 +1,26 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Zenject;
 
 public class ObjectAnimator : MonoBehaviour
 {
-    [SerializeField] private float amplitudeY;
-    [SerializeField] private float omegaY;
-    
-    private float sinArgument;
-    
-    // Start is called before the first frame update
-    void Start()
+    private Rigidbody rigidbody;
+
+    [Inject] private PositionCalculator positionCalculator;
+
+    private void Awake()
     {
-        
+        rigidbody = GetComponent<Rigidbody>();
     }
 
-    public void Update(){
-        sinArgument += Time.deltaTime;
-        float y = amplitudeY*Mathf.Sin (omegaY*sinArgument);
-        transform.position = new Vector3(transform.position.x,y,transform.position.z);
+    void Start()
+    {
+    }
+
+    public void LateUpdate(){
+
+        rigidbody.transform.position = new Vector3(rigidbody.transform.position.x,positionCalculator.CurrentY,rigidbody.transform.position.z);
     }
 }
