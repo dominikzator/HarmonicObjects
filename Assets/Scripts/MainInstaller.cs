@@ -5,9 +5,10 @@ using Zenject;
 
 public class MainInstaller : MonoInstaller
 {
-    [SerializeField] private ObjectAnimator harmonicObjectAnimator;
+    [SerializeField] private GlobalReferencesHolder globalReferencesHolder;
     public override void InstallBindings()
     {
-        Container.BindInterfacesAndSelfTo<PositionCalculator>().AsSingle().NonLazy();
+        Container.BindInterfacesAndSelfTo<GridHolder>().AsSingle().NonLazy();
+        Container.Bind<GlobalReferencesHolder>().FromInstance(globalReferencesHolder).AsSingle().NonLazy();
     }
 }

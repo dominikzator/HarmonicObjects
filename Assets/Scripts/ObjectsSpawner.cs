@@ -12,14 +12,14 @@ public class ObjectsSpawner : MonoBehaviour
     [SerializeField] private float offset;
 
     private ObjectsFactory objectsFactory;
-    
-    [Inject] private PositionCalculator positionCalculator;
-    
+
+    [Inject] private GridHolder gridHolder;
     [Inject] private readonly DiContainer mainContainer;
 
     private void Awake()
     {
         objectsFactory = new ObjectsFactory(mainContainer);
+        gridHolder.ConstructGrid(rowCount, columnCount);
     }
 
     private void Start()
@@ -35,6 +35,9 @@ public class ObjectsSpawner : MonoBehaviour
                 Vector3 objectPos = new Vector3(i * offset, 0f , a * offset);
                 
                 GameObject ob = objectsFactory.CreateGameObjectFromPrefab(spawnObjectPrefab, objectPos, Quaternion.identity, this.transform);
+                ob.GetComponent<GridElement>().SetData(i, a);
+                ob.gameObject.name = $"{i}:{a}";
+                gridHolder.Grid[i,a] = ob;
             }
         }
     }
