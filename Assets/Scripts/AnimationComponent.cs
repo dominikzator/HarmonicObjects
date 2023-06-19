@@ -30,6 +30,8 @@ where T : AnimationPropagationPolicy, new()
 
     public virtual IEnumerator Animate()
     {
+        GetComponent<Renderer>().material.color = new Color(0f, 1f, 0f, 1f);
+        
         foreach (var animComponent in Policy.GetNext(this))
         {
             yield return new WaitForSeconds(globalReferencesHolder.ElementsDelay);

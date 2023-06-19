@@ -32,4 +32,19 @@ public class GridHolder : IInitializable
         ColumnCount = columnCount;
         Grid = new GameObject[rowCount,columnCount];
     }
+
+    public List<GameObject> GetGridList()
+    {
+        List<GameObject> output = new List<GameObject>();
+
+        for (int i = 0; i < rowCount; i++)
+        {
+            for (int a = 0; a < columnCount; a++)
+            {
+                output.Add(Grid[i,a]);
+            }
+        }
+
+        return output;
+    }
 }

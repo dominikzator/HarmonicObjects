@@ -18,7 +18,6 @@ public abstract class ClickableComponent : MonoBehaviour, IPointerClickHandler, 
     {
         Debug.Log("OnPointerClick " + gameObject.name);
 
-        renderer.material.color = new Color(0f, 1f, 0f, 1f);
         OnClick();
     }
 

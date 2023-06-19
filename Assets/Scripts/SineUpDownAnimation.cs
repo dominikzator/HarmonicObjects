@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using DG.Tweening;
 using UnityEngine;
 
-public class SineUpDownAnimation : AnimationComponent<OneByOnePolicy>
+public class SineUpDownAnimation : AnimationComponent<RandomPolicy>
 {
     [SerializeField] private float amplitude;
 
