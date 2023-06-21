@@ -326,9 +326,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   spawnObjectPrefab: {fileID: 8719842443614911709, guid: 85277737dcd55b24e80817d8c727c2df, type: 3}
-  rowCount: 10
-  columnCount: 10
-  offset: 1.5
+  rowCount: 50
+  columnCount: 50
+  offset: 1.4
 --- !u!4 &961202563
 Transform:
   m_ObjectHideFlags: 0
@@ -358,7 +358,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   attractSpeed: 0.1
   testingY: 0
-  elementsDelay: 0.05
+  elementsDelay: 0.1
 --- !u!1 &963194225
 GameObject:
   m_ObjectHideFlags: 0
@@ -444,8 +444,8 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 963194225}
-  m_LocalRotation: {x: -0.14721757, y: 0.8213486, z: -0.24493223, w: -0.49368188}
-  m_LocalPosition: {x: 19.60219, y: 6.7936983, z: 13.066273}
+  m_LocalRotation: {x: 0.28790054, y: -0.10887276, z: 0.032965016, w: 0.9508803}
+  m_LocalPosition: {x: 27.56281, y: 12.574053, z: -13.556545}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []

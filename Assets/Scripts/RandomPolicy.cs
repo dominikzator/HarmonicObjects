@@ -10,7 +10,7 @@ public class RandomPolicy : AnimationPropagationPolicy
 {
     private static bool initialized = false;
     private static GameObject[] objectsToAnimate;
-    public override IEnumerable<AnimationComponent<T>> GetNext<T>(AnimationComponent<T> animationComponent)
+    public override IEnumerable<GridElement> GetNext<T>(AnimationComponent<T> animationComponent)
     {
         IEnumerable<AnimationComponent<T>> objects = (initialized) ? objectsToAnimate.Select(p => p.GetComponent<AnimationComponent<T>>()) : GridHolder.GetGridList().Select(p => p.GetComponent<AnimationComponent<T>>());
         
@@ -32,9 +32,8 @@ public class RandomPolicy : AnimationPropagationPolicy
         Random r = new Random();
         int randInd = r.Next(0, objectsList.Count);
 
-        yield return objectsList[randInd];
+        yield return objectsList[randInd].GetComponent<GridElement>();
     }
-
     public override void Reset()
     {
         initialized = false;

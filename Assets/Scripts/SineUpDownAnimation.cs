@@ -3,14 +3,14 @@ using System.Collections;
 using System.Collections.Generic;
 using DG.Tweening;
 using UnityEngine;
+using Random = System.Random;
 
-public class SineUpDownAnimation : AnimationComponent<RandomPolicy>
+public class SineUpDownAnimation : AnimationComponent<LeftPolicy, RightPolicy>
 {
     [SerializeField] private float amplitude;
 
     private Vector3 startingPos;
     
-    private bool triggered = false;
     private float index;
     
     private void Awake()
@@ -18,9 +18,9 @@ public class SineUpDownAnimation : AnimationComponent<RandomPolicy>
         base.Awake();
         startingPos = gameObject.transform.position;
     }
-    private void Update()
+    private void LateUpdate()
     {
-        if (triggered)
+        if (Triggered)
         {
             index += Time.deltaTime;
             float y = amplitude * Mathf.Sin (AnimSpeed*index);
@@ -31,7 +31,7 @@ public class SineUpDownAnimation : AnimationComponent<RandomPolicy>
     
     public override IEnumerator Animate()
     {
-        triggered = true;
+        Triggered = true;
         return base.Animate();
     }
 }

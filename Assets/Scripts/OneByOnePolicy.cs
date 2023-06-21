@@ -5,7 +5,7 @@ using UnityEngine;
 public class OneByOnePolicy : AnimationPropagationPolicy
 {
     private static GridElement startingGridElement = null;
-    public override IEnumerable<AnimationComponent<T>> GetNext<T>(AnimationComponent<T> animationComponent)
+    public override IEnumerable<GridElement> GetNext<T>(AnimationComponent<T> animationComponent)
     {
         GridElement gridElement = animationComponent.GetComponent<GridElement>();
 
@@ -13,6 +13,7 @@ public class OneByOnePolicy : AnimationPropagationPolicy
         {
             startingGridElement = gridElement;
         }
+        ObjectsAnimated.Add(animationComponent.gameObject);
 
         int rowInd = gridElement.RowIndex;
         int columnInd = gridElement.ColumnIndex;
@@ -35,9 +36,8 @@ public class OneByOnePolicy : AnimationPropagationPolicy
             yield break;
         }
         
-        yield return nextElement;
+        yield return GridHolder.Grid[rowInd, columnInd].GetComponent<GridElement>();
     }
-
     public override void Reset()
     {
         startingGridElement = default;
