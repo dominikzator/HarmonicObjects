@@ -23,8 +23,6 @@ public abstract class AnimationComponent<T1, T2> : AnimationComponent<T1>
     
     public override IEnumerable<GridElement> GetNextElements()
     {
-        Debug.Log("GetNextElements");
-        //Debug.Log("Policy.GetNext(this).Concat(secondPolicy.GetNext(this)).Distinct().Count(): " + Policy.GetNext(this).Concat(secondPolicy.GetNext(this)).Distinct().Count());
         return Policy.GetNext(this).Concat(secondPolicy.GetNext(this)).Distinct();
     }
 }
@@ -89,7 +87,6 @@ where T : AnimationPropagationPolicy, new()
 
     public virtual IEnumerator Animate()
     {
-        Debug.Log("Animate: " + gameObject.name);
         renderer.material.color = new Color(0f, 1f, 0f, 1f);
         
         foreach (var animComponent in GetNextElements().Select(p => p.GetComponent<AnimationComponent<T>>()).Distinct())
