@@ -12,7 +12,6 @@ public class OneByOnePolicy : AnimationPropagationPolicy
         if (!Initialized)
         {
             Initialized = true;
-            InitialElement = gridElement;
         }
         ObjectsAnimated.Add(animationComponent.gameObject);
 
@@ -32,7 +31,7 @@ public class OneByOnePolicy : AnimationPropagationPolicy
 
         AnimationComponent<T> nextElement = GridHolder.Grid[rowInd, columnInd].GetComponent<AnimationComponent<T>>();
 
-        if (ReferenceEquals(InitialElement, nextElement.GetComponent<GridElement>()))
+        if (ReferenceEquals(gridElement, nextElement.GetComponent<GridElement>()))
         {
             yield break;
         }

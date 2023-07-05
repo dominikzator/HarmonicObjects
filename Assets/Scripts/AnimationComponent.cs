@@ -120,11 +120,6 @@ where T : AnimationPropagationPolicy, new()
 
     public virtual void Animate()
     {
-        if (AnimationPropagationPolicy.InitialElement == null)
-        {
-            Debug.Log($"Set InitialElement x: {gameObject.GetComponent<GridElement>().RowIndex}, y: {gameObject.GetComponent<GridElement>().ColumnIndex}");
-            AnimationPropagationPolicy.InitialElement = gameObject.GetComponent<GridElement>();
-        }
         renderer.material.color = new Color(0f, 1f, 0f, 1f);
         AnimFlag = true;
     }

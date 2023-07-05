@@ -11,7 +11,7 @@ public class LeftPolicy : AnimationPropagationPolicy
     {
         GridElement gridElement = animationComponent.GetComponent<GridElement>();
 
-        for (int i = InitialElement.RowIndex - 1; i >= 0; i--)
+        for (int i = gridElement.RowIndex - 1; i >= 0; i--)
         {
             GameObject nextElementObj = GridHolder.Grid[i, gridElement.ColumnIndex].gameObject;
             yield return nextElementObj.GetComponent<GridElement>();

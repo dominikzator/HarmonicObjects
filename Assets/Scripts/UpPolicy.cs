@@ -11,7 +11,7 @@ public class UpPolicy : AnimationPropagationPolicy
     {
         GridElement gridElement = animationComponent.GetComponent<GridElement>();
         
-        for (int i = InitialElement.ColumnIndex + 1; i < GridHolder.ColumnCount; i++)
+        for (int i = gridElement.ColumnIndex + 1; i < GridHolder.ColumnCount; i++)
         {
             GameObject nextElementObj = GridHolder.Grid[gridElement.RowIndex, i].gameObject;
             yield return nextElementObj.GetComponent<GridElement>();

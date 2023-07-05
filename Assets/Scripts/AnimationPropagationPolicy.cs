@@ -10,8 +10,6 @@ public abstract class AnimationPropagationPolicy
     private static bool initialized = false;
     private static List<GameObject> objectsAnimated = new List<GameObject>();
     
-    public static GridElement InitialElement { get; set;}
-
     protected static bool Initialized
     {
         get => initialized;
@@ -32,7 +30,6 @@ public abstract class AnimationPropagationPolicy
     public virtual void Reset()
     {
         Initialized = false;
-        InitialElement = null;
         objectsAnimated.Clear();
     }
 }
