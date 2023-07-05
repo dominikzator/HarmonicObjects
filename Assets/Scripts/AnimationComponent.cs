@@ -4,6 +4,8 @@ using System.ComponentModel;
 using System.Linq;
 using DG.Tweening;
 using Unity.VisualScripting;
+using System.Threading.Tasks;
+using Cysharp.Threading.Tasks;
 using UnityEngine;
 using Zenject;
 
@@ -16,16 +18,13 @@ public abstract class AnimationComponent<T1, T2, T3, T4> : AnimationComponent<T1
     private T4 fourthPolicy;
 
     public T4 FourthPolicy => fourthPolicy;
+    
+    public override List<AnimationPropagationPolicy> Policies => new() { Policy, SecondPolicy, ThirdPolicy, fourthPolicy };
 
     protected void Awake()
     {
         base.Awake();
         fourthPolicy = MainContainer.Instantiate<T4>();
-    }
-    
-    public override IEnumerable<GridElement> GetNextElements()
-    {
-        return Policy.GetNext(this).Concat(SecondPolicy.GetNext(this)).Concat(ThirdPolicy.GetNext(this)).Concat(FourthPolicy.GetNext(this)).Distinct();
     }
 }
 
@@ -37,16 +36,13 @@ public abstract class AnimationComponent<T1, T2, T3> : AnimationComponent<T1, T2
     private T3 thirdPolicy;
 
     public T3 ThirdPolicy => thirdPolicy;
+    
+    public override List<AnimationPropagationPolicy> Policies => new() { Policy, SecondPolicy, thirdPolicy };
 
     protected void Awake()
     {
         base.Awake();
         thirdPolicy = MainContainer.Instantiate<T3>();
-    }
-    
-    public override IEnumerable<GridElement> GetNextElements()
-    {
-        return Policy.GetNext(this).Concat(SecondPolicy.GetNext(this)).Concat(ThirdPolicy.GetNext(this)).Distinct();
     }
 }
 
@@ -58,15 +54,12 @@ public abstract class AnimationComponent<T1, T2> : AnimationComponent<T1>
 
     public T2 SecondPolicy => secondPolicy;
 
+    public override List<AnimationPropagationPolicy> Policies => new() { Policy, secondPolicy };
+
     protected void Awake()
     {
         base.Awake();
         secondPolicy = MainContainer.Instantiate<T2>();
-    }
-    
-    public override IEnumerable<GridElement> GetNextElements()
-    {
-        return Policy.GetNext(this).Concat(secondPolicy.GetNext(this)).Distinct();
     }
 }
 
@@ -89,8 +82,10 @@ where T : AnimationPropagationPolicy, new()
 
     public float AnimSpeed => animSpeed;
     public Rigidbody Rigidbody => rigidbody;
+
     public T Policy => policy;
     
+    public virtual List<AnimationPropagationPolicy> Policies => new(){policy};
 
     public bool Triggered
     {
@@ -123,12 +118,7 @@ where T : AnimationPropagationPolicy, new()
         policy = mainContainer.Instantiate<T>();
     }
 
-    public virtual IEnumerable<GridElement> GetNextElements()
-    {
-        return Policy.GetNext(this);
-    }
-
-    public virtual IEnumerator Animate()
+    public virtual void Animate()
     {
         if (AnimationPropagationPolicy.InitialElement == null)
         {
@@ -136,30 +126,27 @@ where T : AnimationPropagationPolicy, new()
             AnimationPropagationPolicy.InitialElement = gameObject.GetComponent<GridElement>();
         }
         renderer.material.color = new Color(0f, 1f, 0f, 1f);
-        
-
-        foreach (var animComponent in GetNextElements().Select(p => p.GetComponent<AnimationComponent<T>>()).Distinct())
-        {
-            animComponent.AnimFlag = true;
-            
-            yield return new WaitForSeconds(globalReferencesHolder.ElementsDelay);
-            //yield return animComponent.Animate();
-            var cor = StartCoroutine(animComponent.Animate());
-        }
-
-        yield return null;
+        AnimFlag = true;
     }
 
-    private IEnumerator StartAnimate()
+    protected IEnumerator StartAnimateAsync(AnimationPropagationPolicy policy)
     {
-        yield return Animate();
-        
-        Debug.Log("StartAnimate OnClick End");
+        Debug.Log("StartAnimateAsync 1");
+        Animate();
+        foreach (var next in policy.GetNext(this).Select(p => p.GetComponent<AnimationComponent<T>>()))
+        {
+            yield return new WaitForSeconds(globalReferencesHolder.ElementsDelay);
+            next.Animate();
+        }
+        Debug.Log("StartAnimateAsync 2");
     }
 
     public override void OnClick()
     {
         base.OnClick();
-        StartCoroutine(StartAnimate());
+        foreach (var policy in Policies)
+        {
+            StartCoroutine(StartAnimateAsync(policy));
+        }
     }
 }

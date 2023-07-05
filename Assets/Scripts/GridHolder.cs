@@ -25,7 +25,6 @@ public class GridHolder : IInitializable
 
     public void Initialize()
     {
-        Debug.Log("GridHolder Initialize");
     }
 
     public void ConstructGrid(int rowCount, int columnCount)

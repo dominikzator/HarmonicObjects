@@ -27,11 +27,6 @@ public abstract class AnimationPropagationPolicy
 
     public abstract IEnumerable<GridElement> GetNext<T>(AnimationComponent<T> animationComponent) where T : AnimationPropagationPolicy, new();
 
-    public virtual bool GetPredicateMethod(GridElement elem)
-    {
-        return true;
-    }
-
     protected virtual void Initialize() { }
 
     public virtual void Reset()

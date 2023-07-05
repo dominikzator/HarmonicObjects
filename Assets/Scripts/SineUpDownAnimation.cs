@@ -29,9 +29,9 @@ public class SineUpDownAnimation : AnimationComponent<LeftPolicy, RightPolicy, U
         }
     }
     
-    public override IEnumerator Animate()
+    public override void Animate()
     {
         Triggered = true;
-        return base.Animate();
+        base.Animate();
     }
 }
