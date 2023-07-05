@@ -5,7 +5,7 @@ using DG.Tweening;
 using UnityEngine;
 using Random = System.Random;
 
-public class SineUpDownAnimation : AnimationComponent<LeftPolicy, UpPolicy>
+public class SineUpDownAnimation : AnimationComponent<LeftPolicy, RightPolicy, UpPolicy, DownPolicy>
 {
     [SerializeField] private float amplitude;
 

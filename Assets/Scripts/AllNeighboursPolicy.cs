@@ -37,10 +37,6 @@ public class AllNeighboursPolicy : AnimationPropagationPolicy
             yield return elem.GetComponent<GridElement>();
         }
     }
-    public override void Reset()
-    {
-        Initialized = false;
-    }
     private List<GridElement> GetValidElements(List<Vector2> coordinates)
     {
         List<GridElement> gridElements = new List<GridElement>();

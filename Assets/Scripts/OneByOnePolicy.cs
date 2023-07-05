@@ -1,17 +1,18 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 public class OneByOnePolicy : AnimationPropagationPolicy
 {
-    private static GridElement startingGridElement = null;
     public override IEnumerable<GridElement> GetNext<T>(AnimationComponent<T> animationComponent)
     {
         GridElement gridElement = animationComponent.GetComponent<GridElement>();
 
-        if (!startingGridElement)
+        if (!Initialized)
         {
-            startingGridElement = gridElement;
+            Initialized = true;
+            InitialElement = gridElement;
         }
         ObjectsAnimated.Add(animationComponent.gameObject);
 
@@ -31,15 +32,11 @@ public class OneByOnePolicy : AnimationPropagationPolicy
 
         AnimationComponent<T> nextElement = GridHolder.Grid[rowInd, columnInd].GetComponent<AnimationComponent<T>>();
 
-        if (ReferenceEquals(startingGridElement, nextElement.GetComponent<GridElement>()))
+        if (ReferenceEquals(InitialElement, nextElement.GetComponent<GridElement>()))
         {
             yield break;
         }
         
         yield return GridHolder.Grid[rowInd, columnInd].GetComponent<GridElement>();
-    }
-    public override void Reset()
-    {
-        startingGridElement = default;
     }
 }

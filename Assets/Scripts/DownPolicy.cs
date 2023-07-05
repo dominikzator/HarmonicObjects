@@ -7,25 +7,28 @@ using Random = System.Random;
 
 public class DownPolicy : AnimationPropagationPolicy
 {
-    private static GridElement initialElement;
-    private static bool initialized = false;
-    
+    public override bool GetPredicateMethod(GridElement elem)
+    {
+        return elem.RowIndex == InitialElement.GetComponent<GridElement>().RowIndex && elem.ColumnIndex <= InitialElement.GetComponent<GridElement>().ColumnIndex;
+    }
     public override IEnumerable<GridElement> GetNext<T>(AnimationComponent<T> animationComponent)
     {
         GridElement gridElement = animationComponent.GetComponent<GridElement>();
 
+        if (!Initialized)
+        {
+            Initialized = true;
+            InitialElement = gridElement;
+        }
+        
         if (gridElement.ColumnIndex - 1 >= 0)
         {
             GameObject nextElementObj = GridHolder.Grid[gridElement.RowIndex, gridElement.ColumnIndex - 1].gameObject;
 
-            if (!nextElementObj.GetComponent<AnimationComponent<T>>().AnimFlag)
+            if (!nextElementObj.GetComponent<AnimationComponent<T>>().AnimFlag && GetPredicateMethod(nextElementObj.GetComponent<GridElement>()))
             {
                 yield return nextElementObj.GetComponent<GridElement>();
             }
         }
-    }
-    public override void Reset()
-    {
-        initialized = false;
     }
 }

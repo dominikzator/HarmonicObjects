@@ -7,6 +7,8 @@ public class GridHolder : IInitializable
 {
     private int rowCount;
     private int columnCount;
+
+    private List<GameObject> gridList;
     public GameObject[,] Grid { get; set;}
     
     public int RowCount
@@ -35,16 +37,19 @@ public class GridHolder : IInitializable
 
     public List<GameObject> GetGridList()
     {
-        List<GameObject> output = new List<GameObject>();
-
-        for (int i = 0; i < rowCount; i++)
+        if (gridList == null)
         {
-            for (int a = 0; a < columnCount; a++)
+            gridList = new List<GameObject>();
+
+            for (int i = 0; i < rowCount; i++)
             {
-                output.Add(Grid[i,a]);
+                for (int a = 0; a < columnCount; a++)
+                {
+                    gridList.Add(Grid[i,a]);
+                }
             }
         }
 
-        return output;
+        return gridList;
     }
 }

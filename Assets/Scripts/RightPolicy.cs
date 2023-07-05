@@ -7,9 +7,10 @@ using Random = System.Random;
 
 public class RightPolicy : AnimationPropagationPolicy
 {
-    private static GridElement initialElement;
-    private static bool initialized = false;
-    
+    public override bool GetPredicateMethod(GridElement elem)
+    {
+        return elem.RowIndex >= InitialElement.GetComponent<GridElement>().RowIndex && elem.ColumnIndex == InitialElement.GetComponent<GridElement>().ColumnIndex;
+    }
     public override IEnumerable<GridElement> GetNext<T>(AnimationComponent<T> animationComponent)
     {
         GridElement gridElement = animationComponent.GetComponent<GridElement>();
@@ -18,14 +19,10 @@ public class RightPolicy : AnimationPropagationPolicy
         {
             GameObject nextElementObj = GridHolder.Grid[gridElement.RowIndex + 1, gridElement.ColumnIndex].gameObject;
 
-            if (!nextElementObj.GetComponent<AnimationComponent<T>>().AnimFlag)
+            if (!nextElementObj.GetComponent<AnimationComponent<T>>().AnimFlag && GetPredicateMethod(nextElementObj.GetComponent<GridElement>()))
             {
                 yield return nextElementObj.GetComponent<GridElement>();
             }
         }
-    }
-    public override void Reset()
-    {
-        initialized = false;
     }
 }

@@ -8,20 +8,19 @@ using Random = System.Random;
 
 public class RandomPolicy : AnimationPropagationPolicy
 {
-    private static bool initialized = false;
     private static GameObject[] objectsToAnimate;
     public override IEnumerable<GridElement> GetNext<T>(AnimationComponent<T> animationComponent)
     {
-        IEnumerable<AnimationComponent<T>> objects = (initialized) ? objectsToAnimate.Select(p => p.GetComponent<AnimationComponent<T>>()) : GridHolder.GetGridList().Select(p => p.GetComponent<AnimationComponent<T>>());
+        IEnumerable<AnimationComponent<T>> objects = (Initialized && objectsToAnimate != null) ? objectsToAnimate.Select(p => p.GetComponent<AnimationComponent<T>>()) : GridHolder.GetGridList().Select(p => p.GetComponent<AnimationComponent<T>>());
         
         List<AnimationComponent<T>> objectsList = objects.ToList();
         objectsList.Remove(animationComponent);
         
         objectsToAnimate = objectsList.Select(p => p.gameObject).ToArray();
         
-        if (!initialized)
+        if (!Initialized)
         {
-            initialized = true;
+            Initialized = true;
         }
         
         if (objectsToAnimate.Length == 0)
@@ -33,9 +32,5 @@ public class RandomPolicy : AnimationPropagationPolicy
         int randInd = r.Next(0, objectsList.Count);
 
         yield return objectsList[randInd].GetComponent<GridElement>();
-    }
-    public override void Reset()
-    {
-        initialized = false;
     }
 }
