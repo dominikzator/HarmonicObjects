@@ -1,12 +1,9 @@
-using System;
-using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
-using UnityEngine;
 
 public class OneByOnePolicy : AnimationPropagationPolicy
 {
-    public override IEnumerable<GridElement> GetNext<T>(AnimationComponent<T> animationComponent)
+    public override IEnumerable<IEnumerable<GridElement>> GetNext<T>(AnimationComponent<T> animationComponent)
     {
         GridElement gridElement = animationComponent.GetComponent<GridElement>();
         
@@ -25,7 +22,8 @@ public class OneByOnePolicy : AnimationPropagationPolicy
         
         foreach (var nextObj in objectsInOrder)
         {
-            yield return nextObj.GetComponent<GridElement>();
+            IEnumerable<GridElement> output = new List<GridElement> { nextObj.GetComponent<GridElement>() };
+            yield return output;
         }
     }
 }

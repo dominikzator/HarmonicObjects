@@ -1,11 +1,5 @@
 using System.Collections;
 using System.Collections.Generic;
-using System.ComponentModel;
-using System.Linq;
-using DG.Tweening;
-using Unity.VisualScripting;
-using System.Threading.Tasks;
-using Cysharp.Threading.Tasks;
 using UnityEngine;
 using Zenject;
 
@@ -120,7 +114,7 @@ where T : AnimationPropagationPolicy, new()
 
     public virtual void Animate()
     {
-        renderer.material.color = new Color(0f, 1f, 0f, 1f);
+        //renderer.material.color = new Color(0f, 1f, 0f, 1f);
         AnimFlag = true;
     }
 
@@ -128,11 +122,20 @@ where T : AnimationPropagationPolicy, new()
     {
         Debug.Log("StartAnimateAsync 1");
         Animate();
-        foreach (var next in policy.GetNext(this).Select(p => p.GetComponent<AnimationComponent<T>>()))
+        foreach (var next in policy.GetNext(this))
         {
             yield return new WaitForSeconds(globalReferencesHolder.ElementsDelay);
-            next.Animate();
+            foreach (var nextSingleElem in next)
+            {
+                AnimationComponent<T> animComp = nextSingleElem.GetComponent<AnimationComponent<T>>();
+                if (!animComp.animFlag)
+                {
+                    animComp.Animate();
+                }
+            }
         }
+
+        yield return null;
         Debug.Log("StartAnimateAsync 2");
     }
 

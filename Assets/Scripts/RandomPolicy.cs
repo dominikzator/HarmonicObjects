@@ -1,14 +1,10 @@
-using System;
-using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
-using Unity.VisualScripting;
-using UnityEngine;
 using Random = System.Random;
 
 public class RandomPolicy : AnimationPropagationPolicy
 {
-    public override IEnumerable<GridElement> GetNext<T>(AnimationComponent<T> animationComponent)
+    public override IEnumerable<IEnumerable<GridElement>> GetNext<T>(AnimationComponent<T> animationComponent)
     {
         List<AnimationComponent<T>> objects = GridHolder.GetGridList().Select(p => p.GetComponent<AnimationComponent<T>>()).ToList();
         
@@ -21,7 +17,8 @@ public class RandomPolicy : AnimationPropagationPolicy
             AnimationComponent<T> next = objects[randInd];
 
             objects.Remove(next);
-            yield return next.GetComponent<GridElement>();
+            IEnumerable<GridElement> output = new List<GridElement> { next.GetComponent<GridElement>() };
+            yield return output;
         }
     }
 }

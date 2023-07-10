@@ -13,7 +13,6 @@ public class FPSCounter : MonoBehaviour
         text = GetComponent<TextMeshProUGUI>();
     }
 
-    // Update is called once per frame
     void Update()
     {
         var fps = 1f / Time.deltaTime;
