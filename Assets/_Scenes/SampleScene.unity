@@ -610,6 +610,7 @@ MonoBehaviour:
   attractSpeed: 0.1
   testingY: 0
   elementsDelay: 0.1
+  distortedHologramMaterial: {fileID: 2100000, guid: e568502d87def674ea1f394a82ec59ba, type: 2}
 --- !u!1 &963194225
 GameObject:
   m_ObjectHideFlags: 0

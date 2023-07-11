@@ -16,10 +16,12 @@ public class SineUpDownAnimation : AnimationComponent<AllNeighboursPolicy>
                 new Vector3(Rigidbody.transform.position.x, y, Rigidbody.transform.position.z);
         }
     }
-    
     public override void Animate()
     {
-        Triggered = true;
+        if (Triggered)
+        {
+            return;
+        }
         base.Animate();
     }
 }

@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 using Zenject;
 
@@ -67,7 +68,6 @@ where T : AnimationPropagationPolicy, new()
     private Rigidbody rigidbody;
     private Renderer renderer;
     private bool triggered = false;
-    private bool animFlag = false;
 
     [Inject] private readonly DiContainer mainContainer;
     [Inject] private GlobalReferencesHolder globalReferencesHolder;
@@ -76,6 +76,7 @@ where T : AnimationPropagationPolicy, new()
 
     public float AnimSpeed => animSpeed;
     public Rigidbody Rigidbody => rigidbody;
+    public Renderer Renderer => renderer;
 
     public T Policy => policy;
     
@@ -92,18 +93,7 @@ where T : AnimationPropagationPolicy, new()
             triggered = value;
         }
     }
-    public bool AnimFlag
-    {
-        get
-        {
-            return animFlag;
-        }
-        set
-        {
-            animFlag = value;
-        }
-    }
-    
+
     protected void Awake()
     {
         base.Awake();
@@ -114,8 +104,11 @@ where T : AnimationPropagationPolicy, new()
 
     public virtual void Animate()
     {
-        //renderer.material.color = new Color(0f, 1f, 0f, 1f);
-        AnimFlag = true;
+        if (Triggered)
+        {
+            return;
+        }
+        Triggered = true;
     }
 
     protected IEnumerator StartAnimateAsync(AnimationPropagationPolicy policy)
@@ -124,14 +117,19 @@ where T : AnimationPropagationPolicy, new()
         Animate();
         foreach (var next in policy.GetNext(this))
         {
+            Debug.Log("foreach 1");
             yield return new WaitForSeconds(globalReferencesHolder.ElementsDelay);
-            foreach (var nextSingleElem in next)
+            
+            foreach (var nextSingleElem in next.Where(p => !p.GetComponent<AnimationComponent<T>>().Triggered))
             {
-                AnimationComponent<T> animComp = nextSingleElem.GetComponent<AnimationComponent<T>>();
-                if (!animComp.animFlag)
-                {
-                    animComp.Animate();
-                }
+                Debug.Log("foreach 2");
+                var animComp = nextSingleElem.GetComponent<AnimationComponent<T>>();
+                animComp.Animate();
+                //foreach (var animComp in animComps)
+                //{
+                //    //Debug.Log("foreach 3");
+                //    animComp.Animate();
+                //}
             }
         }
 
