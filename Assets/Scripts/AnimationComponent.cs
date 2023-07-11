@@ -58,29 +58,50 @@ public abstract class AnimationComponent<T1, T2> : AnimationComponent<T1>
     }
 }
 
-public abstract class AnimationComponent<T> : ClickableComponent, IAnimated
+public abstract class AnimationComponent<T> : AnimationComponent
 where T : AnimationPropagationPolicy, new()
 {
-    [SerializeField] private float animSpeed;
-
     private T policy;
+
+    public T Policy => policy;
+    
+    public override List<AnimationPropagationPolicy> Policies => new(){policy};
+    
+    protected void Awake()
+    {
+        base.Awake();
+        policy = MainContainer.Instantiate<T>();
+    }
+
+    public override void OnClick()
+    {
+        base.OnClick();
+        foreach (var policy in Policies)
+        {
+            StartCoroutine(StartAnimateAsync(policy));
+        }
+    }
+}
+public abstract class AnimationComponent : ClickableComponent, IAnimated
+{
+    [SerializeField] private float animSpeed;
     
     private Rigidbody rigidbody;
     private Renderer renderer;
     private bool triggered = false;
-
+    
     [Inject] private readonly DiContainer mainContainer;
     [Inject] private GlobalReferencesHolder globalReferencesHolder;
 
     protected DiContainer MainContainer => mainContainer;
+    
+    protected GlobalReferencesHolder GlobalReferencesHolder => globalReferencesHolder;
 
     public float AnimSpeed => animSpeed;
     public Rigidbody Rigidbody => rigidbody;
     public Renderer Renderer => renderer;
-
-    public T Policy => policy;
     
-    public virtual List<AnimationPropagationPolicy> Policies => new(){policy};
+    public virtual List<AnimationPropagationPolicy> Policies => new(){};
 
     public bool Triggered
     {
@@ -99,18 +120,8 @@ where T : AnimationPropagationPolicy, new()
         base.Awake();
         rigidbody = GetComponent<Rigidbody>();
         renderer = GetComponent<Renderer>();
-        policy = mainContainer.Instantiate<T>();
     }
-
-    public virtual void Animate()
-    {
-        if (Triggered)
-        {
-            return;
-        }
-        Triggered = true;
-    }
-
+    
     protected IEnumerator StartAnimateAsync(AnimationPropagationPolicy policy)
     {
         Debug.Log("StartAnimateAsync 1");
@@ -118,12 +129,12 @@ where T : AnimationPropagationPolicy, new()
         foreach (var next in policy.GetNext(this))
         {
             Debug.Log("foreach 1");
-            yield return new WaitForSeconds(globalReferencesHolder.ElementsDelay);
+            yield return new WaitForSeconds(GlobalReferencesHolder.ElementsDelay);
             
-            foreach (var nextSingleElem in next.Where(p => !p.GetComponent<AnimationComponent<T>>().Triggered))
+            foreach (var nextSingleElem in next.Where(p => !p.GetComponent<AnimationComponent>().Triggered))
             {
                 Debug.Log("foreach 2");
-                var animComp = nextSingleElem.GetComponent<AnimationComponent<T>>();
+                var animComp = nextSingleElem.GetComponent<AnimationComponent>();
                 animComp.Animate();
                 //foreach (var animComp in animComps)
                 //{
@@ -137,12 +148,12 @@ where T : AnimationPropagationPolicy, new()
         Debug.Log("StartAnimateAsync 2");
     }
 
-    public override void OnClick()
+    public virtual void Animate()
     {
-        base.OnClick();
-        foreach (var policy in Policies)
+        if (Triggered)
         {
-            StartCoroutine(StartAnimateAsync(policy));
+            return;
         }
+        Triggered = true;
     }
 }

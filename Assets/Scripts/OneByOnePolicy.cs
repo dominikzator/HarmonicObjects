@@ -3,16 +3,16 @@ using System.Linq;
 
 public class OneByOnePolicy : AnimationPropagationPolicy
 {
-    public override IEnumerable<IEnumerable<GridElement>> GetNext<T>(AnimationComponent<T> animationComponent)
+    public override IEnumerable<IEnumerable<GridElement>> GetNext(AnimationComponent animationComponent)
     {
         GridElement gridElement = animationComponent.GetComponent<GridElement>();
         
-        List<AnimationComponent<T>> objects = GridHolder.GetGridList().Select(p => p.GetComponent<AnimationComponent<T>>()).ToList();
+        List<AnimationComponent> objects = GridHolder.GetGridList().Select(p => p.GetComponent<AnimationComponent>()).ToList();
 
-        int ind = objects.IndexOf(gridElement.GetComponent<AnimationComponent<T>>());
+        int ind = objects.IndexOf(gridElement.GetComponent<AnimationComponent>());
         int nextInd = (ind + 1 >= objects.Count) ? 0 : ind + 1;
         
-        List<AnimationComponent<T>> objectsInOrder = objects.GetRange(nextInd, objects.Count - nextInd);
+        List<AnimationComponent> objectsInOrder = objects.GetRange(nextInd, objects.Count - nextInd);
 
         if (nextInd - 1 >= 0)
         {

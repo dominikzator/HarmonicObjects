@@ -4,9 +4,9 @@ using Random = System.Random;
 
 public class RandomPolicy : AnimationPropagationPolicy
 {
-    public override IEnumerable<IEnumerable<GridElement>> GetNext<T>(AnimationComponent<T> animationComponent)
+    public override IEnumerable<IEnumerable<GridElement>> GetNext(AnimationComponent animationComponent)
     {
-        List<AnimationComponent<T>> objects = GridHolder.GetGridList().Select(p => p.GetComponent<AnimationComponent<T>>()).ToList();
+        List<AnimationComponent> objects = GridHolder.GetGridList().Select(p => p.GetComponent<AnimationComponent>()).ToList();
         
         objects.Remove(animationComponent);
         
@@ -14,7 +14,7 @@ public class RandomPolicy : AnimationPropagationPolicy
         {
             Random r = new Random();
             int randInd = r.Next(0, objects.Count);
-            AnimationComponent<T> next = objects[randInd];
+            AnimationComponent next = objects[randInd];
 
             objects.Remove(next);
             IEnumerable<GridElement> output = new List<GridElement> { next.GetComponent<GridElement>() };

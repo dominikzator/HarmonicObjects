@@ -4,12 +4,12 @@ using UnityEngine;
 
 public class AllNeighboursPolicy : AnimationPropagationPolicy
 {
-    public override IEnumerable<IEnumerable<GridElement>> GetNext<T>(AnimationComponent<T> animationComponent)
+    public override IEnumerable<IEnumerable<GridElement>> GetNext(AnimationComponent animationComponent)
     {
         Debug.Log("GetNext");
         GridElement gridElement = animationComponent.GetComponent<GridElement>();
         
-        List<AnimationComponent<T>> objects = GridHolder.GetGridList().Select(p => p.GetComponent<AnimationComponent<T>>()).ToList();
+        List<AnimationComponent> objects = GridHolder.GetGridList().Select(p => p.GetComponent<AnimationComponent>()).ToList();
 
         int iterations = Mathf.Max(GridHolder.RowCount, GridHolder.ColumnCount);
         int range = 1;
@@ -20,7 +20,7 @@ public class AllNeighboursPolicy : AnimationPropagationPolicy
             var neighbours = objects.Select(p => p.GetComponent<GridElement>()).Where(q =>
                 (Mathf.Abs(q.RowIndex - gridElement.RowIndex) <= range && Mathf.Abs(q.ColumnIndex - gridElement.ColumnIndex) <= range)).ToList();
 
-            foreach (var animComp in neighbours.Select(p => p.GetComponent<AnimationComponent<T>>()))
+            foreach (var animComp in neighbours.Select(p => p.GetComponent<AnimationComponent>()))
             {
                 animComp.Triggered = true;
             }

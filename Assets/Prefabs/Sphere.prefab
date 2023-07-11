@@ -14,8 +14,10 @@ GameObject:
   - component: {fileID: 2353615845750514826}
   - component: {fileID: 7750230703792626395}
   - component: {fileID: 7516072143846539964}
+  - component: {fileID: 251864950233372252}
   - component: {fileID: 3879405099302699885}
-  - component: {fileID: 9026234008487092668}
+  - component: {fileID: 4270858241495932471}
+  - component: {fileID: 869106190471482799}
   m_Layer: 0
   m_Name: Sphere
   m_TagString: Untagged
@@ -148,6 +150,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: db57a689d7051a3408b9378d8f13209e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &251864950233372252
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8719842443614911709}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3dc4e44067d19854c8f5813b75168e64, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &3879405099302699885
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -162,7 +176,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   animSpeed: 2
   amplitude: 5
---- !u!114 &9026234008487092668
+--- !u!114 &4270858241495932471
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -176,3 +190,18 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   animSpeed: 0
   materialToChange: {fileID: 2100000, guid: e568502d87def674ea1f394a82ec59ba, type: 2}
+--- !u!114 &869106190471482799
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8719842443614911709}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4a35d223f1d649c4289a66beb30b50ff, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  animSpeed: 0
+  propertyName: _RimColor
+  colorToChange: {r: 0, g: 1, b: 0, a: 1}

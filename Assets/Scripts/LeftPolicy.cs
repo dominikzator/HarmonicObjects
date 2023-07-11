@@ -3,7 +3,7 @@ using UnityEngine;
 
 public class LeftPolicy : AnimationPropagationPolicy
 {
-    public override IEnumerable<IEnumerable<GridElement>> GetNext<T>(AnimationComponent<T> animationComponent)
+    public override IEnumerable<IEnumerable<GridElement>> GetNext(AnimationComponent animationComponent)
     {
         Debug.Log("GetNext");
         GridElement gridElement = animationComponent.GetComponent<GridElement>();

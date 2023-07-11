@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 
 public class ChangeMaterialAnimation : AnimationComponent<AllNeighboursPolicy>
@@ -12,5 +13,9 @@ public class ChangeMaterialAnimation : AnimationComponent<AllNeighboursPolicy>
         }
         base.Animate();
         Renderer.material = materialToChange;
+    }
+    private void Start()
+    {
+        
     }
 }

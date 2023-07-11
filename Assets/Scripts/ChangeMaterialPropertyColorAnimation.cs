@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 
 public class ChangeMaterialPropertyColorAnimation : AnimationComponent<AllNeighboursPolicy>
@@ -13,5 +14,9 @@ public class ChangeMaterialPropertyColorAnimation : AnimationComponent<AllNeighb
         }
         base.Animate();
         Renderer.material.SetColor(propertyName, colorToChange);
+    }
+    private void Start()
+    {
+        
     }
 }

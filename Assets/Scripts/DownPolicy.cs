@@ -3,7 +3,7 @@ using UnityEngine;
 
 public class DownPolicy : AnimationPropagationPolicy
 {
-    public override IEnumerable<IEnumerable<GridElement>> GetNext<T>(AnimationComponent<T> animationComponent)
+    public override IEnumerable<IEnumerable<GridElement>> GetNext(AnimationComponent animationComponent)
     {
         GridElement gridElement = animationComponent.GetComponent<GridElement>();
         
