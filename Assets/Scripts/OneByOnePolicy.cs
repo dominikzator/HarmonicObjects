@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using System.Linq;
+using UnityEngine;
 
 public class OneByOnePolicy : AnimationPropagationPolicy
 {
@@ -25,5 +26,9 @@ public class OneByOnePolicy : AnimationPropagationPolicy
             IEnumerable<GridElement> output = new List<GridElement> { nextObj.GetComponent<GridElement>() };
             yield return output;
         }
+    }
+    public override void Initialize()
+    {
+        Debug.Log("OneByOnePolicy Initialize");
     }
 }

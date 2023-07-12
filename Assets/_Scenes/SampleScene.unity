@@ -577,8 +577,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   spawnObjectPrefab: {fileID: 8719842443614911709, guid: 85277737dcd55b24e80817d8c727c2df, type: 3}
-  rowCount: 50
-  columnCount: 50
+  rowCount: 1
+  columnCount: 1
   offset: 1.4
 --- !u!4 &961202563
 Transform:

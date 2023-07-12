@@ -25,6 +25,7 @@ public class GridHolder : IInitializable
 
     public void Initialize()
     {
+        
     }
 
     public void ConstructGrid(int rowCount, int columnCount)

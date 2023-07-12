@@ -14,4 +14,8 @@ public class RightPolicy : AnimationPropagationPolicy
             yield return output;
         }
     }
+    public override void Initialize()
+    {
+        Debug.Log("RightPolicy Initialize");
+    }
 }

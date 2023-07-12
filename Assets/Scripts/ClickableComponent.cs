@@ -5,7 +5,6 @@ public abstract class ClickableComponent : MonoBehaviour, IPointerClickHandler, 
 {
     protected void Awake()
     {
-        Debug.Log("ClickableComponent Awake");
     }
 
     public void OnPointerClick(PointerEventData eventData)

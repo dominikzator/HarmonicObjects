@@ -1,6 +1,8 @@
-using System.Collections;
+using System;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
+using Zenject;
 
 public class GlobalReferencesHolder : MonoBehaviour
 {
@@ -13,4 +15,16 @@ public class GlobalReferencesHolder : MonoBehaviour
     public float TestingY => testingY;
     public float ElementsDelay => elementsDelay;
     public Material DistortedHologramMaterial => distortedHologramMaterial;
+
+    private List<Type> animationPropagationPolicyTypes = new List<Type>();
+
+    private void Start()
+    {
+        animationPropagationPolicyTypes = AppDomain.CurrentDomain.GetAssemblies().SelectMany(assembly => assembly.GetTypes()).Where(p => p.IsSubclassOf(typeof(AnimationPropagationPolicy))).ToList();
+    }
+
+    public Type GetAnimationPropagationPolicy(string name)
+    {
+        return animationPropagationPolicyTypes.First(p => p.ToString() == name);
+    }
 }

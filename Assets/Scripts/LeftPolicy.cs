@@ -15,4 +15,8 @@ public class LeftPolicy : AnimationPropagationPolicy
             yield return output;
         }
     }
+    public override void Initialize()
+    {
+        Debug.Log("LeftPolicy Initialize");
+    }
 }

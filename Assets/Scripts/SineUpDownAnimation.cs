@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class SineUpDownAnimation : AnimationComponent<AllNeighboursPolicy>
+public class SineUpDownAnimation : AnimationComponent<LeftPolicy,RightPolicy,UpPolicy,DownPolicy>
 {
     [SerializeField] private float amplitude;
     

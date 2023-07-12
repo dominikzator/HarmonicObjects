@@ -35,4 +35,9 @@ public class AllNeighboursPolicy : AnimationPropagationPolicy
             range++;
         }
     }
+
+    public override void Initialize()
+    {
+        Debug.Log("AllNeighboursPolicy Initialize");
+    }
 }

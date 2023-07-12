@@ -14,4 +14,8 @@ public class DownPolicy : AnimationPropagationPolicy
             yield return output;
         }
     }
+    public override void Initialize()
+    {
+        Debug.Log("DownPolicy Initialize");
+    }
 }
