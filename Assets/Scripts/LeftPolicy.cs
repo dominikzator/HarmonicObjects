@@ -5,7 +5,6 @@ public class LeftPolicy : AnimationPropagationPolicy
 {
     public override IEnumerable<IEnumerable<GridElement>> GetNext(AnimationComponent animationComponent)
     {
-        Debug.Log("GetNext");
         GridElement gridElement = animationComponent.GetComponent<GridElement>();
 
         for (int i = gridElement.RowIndex - 1; i >= 0; i--)
@@ -14,9 +13,5 @@ public class LeftPolicy : AnimationPropagationPolicy
             IEnumerable<GridElement> output = new List<GridElement> { nextElementObj.GetComponent<GridElement>() };
             yield return output;
         }
-    }
-    public override void Initialize()
-    {
-        Debug.Log("LeftPolicy Initialize");
     }
 }

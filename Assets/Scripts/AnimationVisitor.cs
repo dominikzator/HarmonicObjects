@@ -1,43 +1,34 @@
-using System;
+using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
-using Zenject;
 
-public class AnimationVisitor : IInitializable, IDisposable, ITickable
+public class AnimationVisitor
 {
     private AnimationPropagationPolicy animationPropagationPolicy;
-    private List<AnimationComponent> animationComponents = new List<AnimationComponent>();
-
-    [Inject] private GlobalReferencesHolder globalReferencesHolder;
-
-    public GlobalReferencesHolder GlobalReferencesHolder => globalReferencesHolder;
-
-    //public AnimationVisitor()
-    //{
-    //    Debug.Log("AnimationVisitor Default Constructor");
-    //}
-
+    private List<AnimationComponent> animationComponents;
+    public List<AnimationComponent> AnimationComponents => animationComponents;
+    
     public AnimationVisitor(AnimationPropagationPolicy policy, List<AnimationComponent> animationComponents)
     {
-        Debug.Log($"AnimationVisitor Constructor policy: {policy} animationComponents count: {animationComponents.Count}");
         this.animationPropagationPolicy = policy;
         this.animationComponents = animationComponents;
-
-        //Debug.Log("globalReferencesHolder.gameObject.name: " + globalReferencesHolder.gameObject.name);
     }
-
-    public void Initialize()
+    public IEnumerator StartAnimateAsync(AnimationComponent animationComponent)
     {
-        Debug.Log("Initialize AnimationVisitor with Policy: " + animationPropagationPolicy.GetType());
-    }
+        animationComponent.Animate();
+        foreach (var next in animationPropagationPolicy.GetNext(animationComponent))
+        {
+            yield return new WaitForSeconds(animationComponent.AnimDelay);
+            
+            foreach (var nextSingleElem in next.Where(p => !p.GetComponents<AnimationComponent>().First(q => q.GetType() == animationComponent.GetType()).Triggered))
+            {
+                var components = nextSingleElem.GetComponents<AnimationComponent>();
+                var animComp = components.First(p => p.GetType() == animationComponent.GetType());
+                animComp.Animate();
+            }
+        }
 
-    public void Dispose()
-    {
-        Debug.Log("Dispose AnimationVisitor with Policy: " + animationPropagationPolicy.GetType());
-    }
-
-    public void Tick()
-    {
-        Debug.Log("Tick!");
+        yield return null;
     }
 }

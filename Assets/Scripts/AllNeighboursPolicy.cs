@@ -6,7 +6,6 @@ public class AllNeighboursPolicy : AnimationPropagationPolicy
 {
     public override IEnumerable<IEnumerable<GridElement>> GetNext(AnimationComponent animationComponent)
     {
-        Debug.Log("GetNext");
         GridElement gridElement = animationComponent.GetComponent<GridElement>();
         
         List<AnimationComponent> objects = GridHolder.GetGridList().Select(p => p.GetComponent<AnimationComponent>()).ToList();
@@ -20,11 +19,6 @@ public class AllNeighboursPolicy : AnimationPropagationPolicy
             var neighbours = objects.Select(p => p.GetComponent<GridElement>()).Where(q =>
                 (Mathf.Abs(q.RowIndex - gridElement.RowIndex) <= range && Mathf.Abs(q.ColumnIndex - gridElement.ColumnIndex) <= range)).ToList();
 
-            foreach (var animComp in neighbours.Select(p => p.GetComponent<AnimationComponent>()))
-            {
-                animComp.Triggered = true;
-            }
-            
             yield return neighbours.AsEnumerable();
 
             if (neighbours.Count == objects.Count)
@@ -34,10 +28,5 @@ public class AllNeighboursPolicy : AnimationPropagationPolicy
 
             range++;
         }
-    }
-
-    public override void Initialize()
-    {
-        Debug.Log("AllNeighboursPolicy Initialize");
     }
 }

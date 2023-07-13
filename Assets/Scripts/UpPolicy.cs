@@ -14,8 +14,4 @@ public class UpPolicy : AnimationPropagationPolicy
             yield return output;
         }
     }
-    public override void Initialize()
-    {
-        Debug.Log("UpPolicy Initialize");
-    }
 }

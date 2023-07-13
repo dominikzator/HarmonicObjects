@@ -1,6 +1,5 @@
 using System.Collections.Generic;
 using System.Linq;
-using UnityEngine;
 using Random = System.Random;
 
 public class RandomPolicy : AnimationPropagationPolicy
@@ -21,9 +20,5 @@ public class RandomPolicy : AnimationPropagationPolicy
             IEnumerable<GridElement> output = new List<GridElement> { next.GetComponent<GridElement>() };
             yield return output;
         }
-    }
-    public override void Initialize()
-    {
-        Debug.Log("RandomPolicy Initialize");
     }
 }
