@@ -17,8 +17,8 @@ GameObject:
   - component: {fileID: 251864950233372252}
   - component: {fileID: 2750373109302694852}
   - component: {fileID: 1443503548860086422}
-  - component: {fileID: 7818227761624282245}
-  - component: {fileID: 5230613220545758048}
+  - component: {fileID: 9189450927025877806}
+  - component: {fileID: 2775605296232472712}
   m_Layer: 0
   m_Name: Sphere
   m_TagString: Untagged
@@ -194,7 +194,7 @@ MonoBehaviour:
   animSpeed: 0
   propertyName: _RimColor
   colorToChange: {r: 0, g: 1, b: 0, a: 1}
---- !u!114 &7818227761624282245
+--- !u!114 &9189450927025877806
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -206,10 +206,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9c79d18bd57007d49b26fa57e8b01ee7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  animDelay: 0.5
+  animDelay: 0.3
   animSpeed: 0
   propertyName: _RimColor
---- !u!114 &5230613220545758048
+--- !u!114 &2775605296232472712
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -218,10 +218,13 @@ MonoBehaviour:
   m_GameObject: {fileID: 8719842443614911709}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1529f5d74b36aa144afef8974e57200b, type: 3}
+  m_Script: {fileID: 11500000, guid: c27a80cdc3161ed44849f5699a0da2ce, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   animDelay: 0.15
   animSpeed: 2
   amplitude: 5
   decayTime: 10
+  includeXaxis: 1
+  includeYaxis: 1
+  includeZaxis: 1
