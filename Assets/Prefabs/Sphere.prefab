@@ -15,9 +15,10 @@ GameObject:
   - component: {fileID: 7750230703792626395}
   - component: {fileID: 7516072143846539964}
   - component: {fileID: 251864950233372252}
-  - component: {fileID: 3853384923092165431}
   - component: {fileID: 2750373109302694852}
-  - component: {fileID: 8045013992936570219}
+  - component: {fileID: 1443503548860086422}
+  - component: {fileID: 7818227761624282245}
+  - component: {fileID: 5230613220545758048}
   m_Layer: 0
   m_Name: Sphere
   m_TagString: Untagged
@@ -162,21 +163,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3dc4e44067d19854c8f5813b75168e64, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!114 &3853384923092165431
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8719842443614911709}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6f308f6b7bd75534a9ff552646f58552, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  animDelay: 0.15
-  animSpeed: 2
-  amplitude: 5
 --- !u!114 &2750373109302694852
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -192,7 +178,7 @@ MonoBehaviour:
   animDelay: 0.1
   animSpeed: 0
   materialToChange: {fileID: 2100000, guid: e568502d87def674ea1f394a82ec59ba, type: 2}
---- !u!114 &8045013992936570219
+--- !u!114 &1443503548860086422
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -208,3 +194,34 @@ MonoBehaviour:
   animSpeed: 0
   propertyName: _RimColor
   colorToChange: {r: 0, g: 1, b: 0, a: 1}
+--- !u!114 &7818227761624282245
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8719842443614911709}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9c79d18bd57007d49b26fa57e8b01ee7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  animDelay: 0.5
+  animSpeed: 0
+  propertyName: _RimColor
+--- !u!114 &5230613220545758048
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8719842443614911709}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1529f5d74b36aa144afef8974e57200b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  animDelay: 0.15
+  animSpeed: 2
+  amplitude: 5
+  decayTime: 10
