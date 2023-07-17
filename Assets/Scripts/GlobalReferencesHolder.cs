@@ -5,7 +5,11 @@ using UnityEngine;
 
 public class GlobalReferencesHolder : MonoBehaviour
 {
+    [SerializeField] private float turnProbability;
+    
     private List<Type> animationPropagationPolicyTypes = new List<Type>();
+
+    public float TurnProbability => turnProbability;
 
     private void Start()
     {

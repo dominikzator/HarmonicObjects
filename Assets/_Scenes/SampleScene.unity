@@ -576,7 +576,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9968f57e570feb34bb8693ae23f414bc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  spawnObjectPrefab: {fileID: 8719842443614911709, guid: 85277737dcd55b24e80817d8c727c2df, type: 3}
+  spawnObjectPrefab: {fileID: 8719842443614911709, guid: e0c307a35f5988246ae5ce61673bf702, type: 3}
   rowCount: 50
   columnCount: 50
   offset: 1.4
@@ -607,6 +607,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e87f23815f52dcc48a8fde87b92db1f4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  turnProbability: 0.2
 --- !u!1 &963194225
 GameObject:
   m_ObjectHideFlags: 0
